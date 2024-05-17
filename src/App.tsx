@@ -21,7 +21,6 @@ function App() {
           <Loading/>
           <Message/>
           <Routes>
-              <Route path='/login' element={ <Login/>}/>
               <Route path='/profile' element={ <Profile/>}/>
               <Route path='/' element={<Login/>}/>
           </Routes>

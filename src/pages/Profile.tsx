@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { Context } from "../context/UserContext";
+import { NavBar } from "../components/Navbar";
 
 export function Profile(){
     type User = {
@@ -16,7 +17,7 @@ export function Profile(){
         throw new Error("MyComponent must be used within a UserProvider");
     }
 
-    const { getUser, logout } = context;
+    const { getUser } = context;
 
     useEffect(() => {
         getUser().then((response: any) => {
@@ -32,9 +33,7 @@ export function Profile(){
         <section className=" h-screen bg-[#F1F5F9]">
             
            
-            <div className="py-3.5 px-4 md:px-8 bg-white w-full flex justify-end fixed top-0 left-0 right-0">
-                        <button onClick={() => logout()}  className="bg-primary text-white font-semibold rounded-lg py-3 px-20 rounded-[9px]">Logout</button>
-            </div>
+            <NavBar/>
             <div className='flex items-center justify-center w-full h-full'>
                     
                     <form className="p-8 bg-white rounded-[18px] shadow-lg p-8">

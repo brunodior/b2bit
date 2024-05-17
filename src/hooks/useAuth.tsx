@@ -54,7 +54,7 @@ export default function useAuth(){
           return true
       }else{
           setLoading(false)
-          navigate('/login')
+          navigate('/')
           return false
       }
     }
