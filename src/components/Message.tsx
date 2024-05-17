@@ -8,10 +8,9 @@ function Message(){
 
     useEffect(()=> {
         bus.addListener('flash', ({message, color}) =>{
-            setVisibility(true)
             setMessage(message)
-            console.log(color)
-            setColor(`bg-${color}-500`)
+            setColor(color)
+            setVisibility(true)
             setTimeout(() =>{
                 setVisibility(false)
             }, 3000)
@@ -20,7 +19,7 @@ function Message(){
 
     return (
         visibility ? (
-                <div style={{zIndex: '1000'}} className={`rounded-xl shadow-lg absolute w-3/6 text-center mt-3 font-bold absolute translate-x-1/2 p-3 text-white border  ${color}`}>
+                <div style={{zIndex: '1000'}} className={`rounded-xl shadow-lg absolute w-3/6 text-center mt-3 font-bold absolute translate-x-1/2 p-3 text-white border ${color === 'red'? 'bg-red-500': 'bg-green-500'}`}>
                    {message}
                 </div>
         ) : (
