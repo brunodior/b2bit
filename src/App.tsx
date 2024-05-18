@@ -11,7 +11,7 @@ import Message from './components/Message'
 
 // context 
 import { UserProvider } from './context/UserContext';
-import PageTeste from './pages/PageTeste'
+
 
 
 function App() {
@@ -23,9 +23,7 @@ function App() {
           <Message/>
           <Routes>
               <Route path='profile' element={ <Profile/>}/>
-              <Route path='teste' element={<PageTeste/>}/>
               <Route path='/' element={<Login/>}/>
-
           </Routes>
         </UserProvider>
     </BrowserRouter> 
