@@ -1,11 +1,8 @@
-import { useContext } from "react";
-import { Context } from "../context/UserContext";
-
-
+import  useMyContext  from '../context/UserContext';
 
 export function NavBar(){
 
-    const context = useContext(Context);
+    const context = useMyContext();
    
     if (!context) {
         throw new Error("MyComponent must be used within a UserProvider");

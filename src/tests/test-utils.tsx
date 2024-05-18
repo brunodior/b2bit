@@ -1,15 +1,15 @@
 import  { ReactNode } from 'react';
-import { Context } from '../context/UserContext';
+import  {UserProvider}  from '../context/UserContext';
 
 interface MockUserProviderProps {
   children: ReactNode;
   value?: any;
 }
 
-export const MockUserProvider = ({ children, value }: MockUserProviderProps) => {
+export const MockUserProvider = ({ children }: MockUserProviderProps) => {
   return (
-    <Context.Provider value={value}>
+    <UserProvider>
       {children}
-    </Context.Provider>
+    </UserProvider>
   );
 };
