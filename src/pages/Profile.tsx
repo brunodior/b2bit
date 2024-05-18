@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from "react"
-import { Context } from "../context/UserContext";
+import { useEffect, useState } from "react"
+import  useMyContext  from "../context/UserContext";
+import { NavBar } from "../components/Navbar";
 
 export function Profile(){
     type User = {
@@ -10,13 +11,11 @@ export function Profile(){
     };
     
     const [user, setUser] = useState<User | null>(null);
-    const context = useContext(Context);
+    const context = useMyContext();
    
-    if (!context) {
-        throw new Error("MyComponent must be used within a UserProvider");
-    }
+    
 
-    const { getUser, logout } = context;
+    const { getUser } = context;
 
     useEffect(() => {
         getUser().then((response: any) => {
@@ -32,15 +31,13 @@ export function Profile(){
         <section className=" h-screen bg-[#F1F5F9]">
             
            
-            <div className="py-3.5 px-4 md:px-8 bg-white w-full flex justify-end fixed top-0 left-0 right-0">
-                        <button onClick={() => logout()}  className="bg-primary text-white font-semibold rounded-lg py-3 px-20 rounded-[9px]">Logout</button>
-            </div>
+            <NavBar/>
             <div className='flex items-center justify-center w-full h-full'>
                     
                     <form className="p-8 bg-white rounded-[18px] shadow-lg p-8">
                         <div className="w-full flex items-center flex-col mb-7">
                             <h4  className=" text-primary text-xs mb-2 font-semibold">Profile picture</h4>
-                            <img className="w-[56px] h-[56px] object-cover rounded-[8px]" src={user?.avatar.image_medium_url ? (user.avatar.image_medium_url ) : 'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg'} alt="image" />
+                            <img className="w-[56px] h-[56px] object-cover rounded-[8px]" src={user?.avatar.low ? (user.avatar.low ) : 'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg'} alt="image" />
                         </div>
                         <div className="flex flex-col mb-5">
                             <h4  className=" text-primary text-sm mb-2">Your <span className="font-bold">Name</span></h4>

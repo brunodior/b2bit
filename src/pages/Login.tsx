@@ -1,19 +1,14 @@
 import logo from '../assets/logob2bit.png'
 import { useFormik } from 'formik';
-import { useContext } from 'react';
-import { Context } from '../context/UserContext';
+import  useMyContext  from '../context/UserContext';
 
 
 
 export function Login(){
 
-    const context = useContext(Context);
+    const {login} = useMyContext();
 
-    if (!context) {
-        throw new Error("MyComponent must be used within a UserProvider");
-    }
-
-    const { login } = context;
+  
 
     const formik = useFormik({
         initialValues: {

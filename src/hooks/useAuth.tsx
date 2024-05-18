@@ -1,33 +1,43 @@
-import api from '../utils/api'
 import {useNavigate } from 'react-router-dom'
 import useLoading from './useLoading'
 import useFlashMessage from './useFlashMessage'
-
+import { doLogin, getProfile, api } from '../api/authService'
 export default function useAuth(){
 
     const {setFlashMessage} = useFlashMessage()
     const {setLoading} = useLoading()
-
-   
-    const navigate  = useNavigate()
+    const navigate = useNavigate()
 
 
     async function login(user?: any){
-
         setLoading(true);
           try {
-            const data = await api.post('/login/', user, {
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json;version=v1_web'
-              }
-            });
-            await authUser(data)
-            setLoading(false);
+            await doLogin(user).then(async(response) => {
+               authUser(response)
+            })
           } catch (error: any) {
             setLoading(false);
             setFlashMessage(error.response.data.detail, 'red')
         }
+    }
+
+    async function getUser() {
+      
+      await checkAuth()
+
+      try {
+          const token = localStorage.getItem('token')
+          if(token){
+            const response = await getProfile(token)
+            setLoading(false);
+            setFlashMessage('Seja Bem-vindo!', 'green')
+            return response 
+          }
+      } catch (error: any) {
+          setLoading(false);
+          setFlashMessage(error.response.data.detail, 'red')
+      }
+
     }
 
     function logout(){
@@ -38,7 +48,7 @@ export default function useAuth(){
       
     }
    
-    async function authUser(response: any){
+    function authUser(response: any){
 
 
         localStorage.setItem('token', JSON.stringify(response.data.tokens.access))
@@ -46,7 +56,7 @@ export default function useAuth(){
         
     }
 
-    async function checkAuth(){
+    function checkAuth(){
       const token = localStorage.getItem('token')
       if(token){
           setLoading(true);
@@ -54,38 +64,11 @@ export default function useAuth(){
           return true
       }else{
           setLoading(false)
-          navigate('/login')
+          navigate('/')
           return false
       }
     }
 
-    async function getUser() {
-      
-          await checkAuth()
-      
-          try {
-            const token = localStorage.getItem('token')
-            if(token){
-              const response = await api.get('/profile/', {  
-                headers: {
-                  'Authorization': `Bearer ${JSON.parse(token)}`,
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json;version=v1_web'
-                }
-              });  
-            setLoading(false);
-            setFlashMessage('Seja Bem-vindo!', 'green')
-
-            return response.data
-        }} catch (error: any) {
-            setLoading(false);
-            setFlashMessage(error.response.data.detail, 'red')
-        }
-
-    }
-
-   
-    
 
     return { login, checkAuth, getUser, logout}
 
