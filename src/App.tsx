@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import './App.css'
 
 // pages
@@ -17,18 +17,18 @@ import PageTeste from './pages/PageTeste'
 function App() {
 
   return (
-    <Router>
+    <BrowserRouter>
         <UserProvider>
           <Loading/>
           <Message/>
           <Routes>
-              <Route path='/profile' element={ <Profile/>}/>
-              <Route path='/teste' element={<PageTeste/>}/>
+              <Route path='profile' element={ <Profile/>}/>
+              <Route path='teste' element={<PageTeste/>}/>
               <Route path='/' element={<Login/>}/>
 
           </Routes>
         </UserProvider>
-    </Router> 
+    </BrowserRouter> 
   )
 }
 
