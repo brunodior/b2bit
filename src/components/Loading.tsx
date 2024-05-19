@@ -18,7 +18,7 @@ function Loading(){
         visibility ? (
                <div className="h-full w-full absolute bg-white flex items-center justify-center bg-opacity-25">
                 <div className="flex relative items-center justify-center">
-                    <img src={logo} className="w-12 absolute" alt="" />
+                    <img src={logo} className="w-12 absolute" alt="logoLoading" />
                     <ClipLoader size={90} color={"#02274F"} loading={true} />
 
                 </div>
