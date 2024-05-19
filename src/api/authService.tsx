@@ -4,15 +4,19 @@ export const api = axios.create({
     baseURL: 'https://api.homologation.cliqdrive.com.br/auth/'
 })
 
-export async function doLogin(user?: any){
-    const response = await axios.post('https://api.homologation.cliqdrive.com.br/auth/login/', user, {
+export async function doLogin(user?: any) {
+    try {
+      const response = await axios.post('https://api.homologation.cliqdrive.com.br/auth/login/', user, {
         headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json;version=v1_web'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json;version=v1_web'
         }
-    })
-    return response;
-}
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 
 
 export async function getProfile(token: string) {
@@ -25,4 +29,5 @@ export async function getProfile(token: string) {
       });  
       return response.data;
 }
+
 
